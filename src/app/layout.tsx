@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { pretendard, poppins } from "./fonts/fonts";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import Header from "@/components/common/header";
 
 
 export const metadata: Metadata = {
@@ -21,7 +23,10 @@ export default function RootLayout({
     >
       <body>
         <div className="mx-auto w-full max-w-(--max-width) bg-white shadow-2xl min-h-screen px-5 pb-9">
-          {children}
+          <Header />
+          <TooltipProvider>
+            {children}
+          </TooltipProvider>
         </div>
       </body>
     </html>
