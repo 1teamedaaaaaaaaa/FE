@@ -1,10 +1,19 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { Button } from "@/components/ui/button";
+import Autoplay from "embla-carousel-autoplay";
 
 export default function OnboardingPage() {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
+  const autoplay = useRef(
+    Autoplay({
+      delay: 3000,
+      stopOnInteraction: false, // 유저가 터치해도 계속 재생
+    })
+  );
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false }, [
+    autoplay.current,
+  ]);
   const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [canNext, setCanNext] = useState(false);
@@ -16,7 +25,6 @@ export default function OnboardingPage() {
     const onInit = () => {
       setScrollSnaps(emblaApi.scrollSnapList());
     };
-
     const onSelect = () => {
       setSelectedIndex(emblaApi.selectedScrollSnap());
 
@@ -28,6 +36,7 @@ export default function OnboardingPage() {
     emblaApi.on("reInit", onInit);
     emblaApi.on("select", onSelect);
 
+    //cleanup
     return () => {
       emblaApi.off("reInit", onInit);
       emblaApi.off("select", onSelect);
@@ -37,7 +46,7 @@ export default function OnboardingPage() {
     <main className="p-5">
       <div className="mt-25 mb-24 flex flex-col items-center gap-12 text-center">
         <div className="flex flex-col gap-6">
-          <h1 className="h1-bold">
+          <h1 className="h1-bold text-font-basic">
             새 음원 홍보,
             <br />
             <span className="text-main">어떻게 해야 할지 몰라</span>
@@ -52,7 +61,12 @@ export default function OnboardingPage() {
         </div>
         <>
           {/* Carousel */}
-          <div className="embla__viewport" ref={emblaRef}>
+          <div
+            className="embla__viewport"
+            ref={emblaRef}
+            onMouseEnter={() => autoplay.current.stop()}
+            onMouseLeave={() => autoplay.current.play()}
+          >
             <div className="embla__container">
               <div className="embla__slide">
                 <div className="inline-flex flex-col gap-2">
