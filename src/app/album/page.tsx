@@ -21,8 +21,16 @@ export default function AlbumPage() {
             <span>커버 추가</span>
           </button>
         </div>
-        <Input label="뮤지션명" placeholder="아티스트 이름을 입력하세요" />
-        <Input label="앨범명" placeholder="앨범 / 싱글명을 입력하세요" />
+        <Input
+          label="뮤지션명"
+          placeholder="아티스트 이름을 입력하세요"
+          maxLength={50}
+        />
+        <Input
+          label="앨범명"
+          placeholder="앨범 / 싱글명을 입력하세요"
+          maxLength={50}
+        />
         <Input
           label="발매일"
           placeholder="YYYY.MM.DD"
