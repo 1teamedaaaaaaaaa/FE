@@ -28,7 +28,7 @@ export default function Home() {
         <Tooltip>
           <TooltipTrigger asChild>
             <Button variant="btnPurple" size="full">
-              <span className="p1-semibold">신곡 홍보 링크 만들기</span>
+              신곡 홍보 링크 만들기
             </Button>
           </TooltipTrigger>
           <TooltipContent>
@@ -42,7 +42,7 @@ export default function Home() {
         <Tooltip>
           <TooltipTrigger asChild>
             <Button variant="btnWhite" size="full">
-              <span className="p1-semibold">내 음원 홍보 진단하기</span>
+              내 음원 홍보 진단하기
             </Button>
           </TooltipTrigger>
           <TooltipContent>

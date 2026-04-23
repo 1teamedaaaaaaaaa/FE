@@ -117,32 +117,32 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 
   /* Brand */
-  --color-main: #6A40FC;
-  --color-sub: #BDFB46;
-  --main-light1: #F4F1FF;
-  --main-light2: #D4C4FF;
+  --color-main: #6a40fc;
+  --color-sub: #bdfb46;
+  --main-light1: #f4f1ff;
+  --main-light2: #d4c4ff;
 
   /* Semantic */
-  --color-success: #16B44A;
-  --color-warning: #F59E0B;
-  --color-danger: #ED2525;
+  --color-success: #16b44a;
+  --color-warning: #f59e0b;
+  --color-danger: #ed2525;
 
   /* Greyscale */
-  --color-grey1: #F5F6F8;
-  --color-grey2: #E6E8EB;
-  --color-border: #D9D9D9;
+  --color-grey1: #f5f6f8;
+  --color-grey2: #e6e8eb;
+  --color-border: #d9d9d9;
 
   /* Font Color */
   --color-font-basic: #222222;
-  --color-font-middle: #6C6C6C;
-  --color-font-light: #AAAAAA;
+  --color-font-middle: #6c6c6c;
+  --color-font-light: #aaaaaa;
 
   /* Max Width */
   --max-width: var(--max-width);
 }
 
 /* Typography */
-@layer components {
+@layer utilities {
   /* Heading */
   .h1-bold {
     font-size: 1.75rem; /* 28px */
@@ -206,7 +206,6 @@
     font-size: 0.875rem; /* 14px */
     font-weight: 700;
     line-height: 130%;
-
   }
   .p2-semibold {
     font-size: 0.875rem; /* 14px */
