@@ -10,14 +10,13 @@ import {
 
 export default function Home() {
   const [showIntro, setShowIntro] = useState(true);
-
   const dismissIntro = () => setShowIntro(false);
 
   return (
     <main className="p-5">
       {showIntro && (
         <div
-          className="fixed inset-0 z-1000 bg-black/60"
+          className="fixed inset-0 z-1000 bg-black/50"
           onClick={dismissIntro}
         />
       )}

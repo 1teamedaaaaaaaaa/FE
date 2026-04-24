@@ -42,13 +42,17 @@ function TooltipContent({
         data-slot="tooltip-content"
         sideOffset={sideOffset}
         className={cn(
-          "bg-grey1 border-border text-font-middle data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[state=delayed-open]:animate-in data-[state=delayed-open]:fade-in-0 data-[state=delayed-open]:zoom-in-95 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 z-1001 inline-flex w-fit max-w-xs origin-(--radix-tooltip-content-transform-origin) items-center gap-1.5 rounded-md border px-[15.5px] py-[9px] text-xs has-data-[slot=kbd]:pr-1.5 **:data-[slot=kbd]:relative **:data-[slot=kbd]:isolate **:data-[slot=kbd]:z-50 **:data-[slot=kbd]:rounded-sm",
-          className
+          "z-1001 inline-flex w-fit max-w-xs items-center gap-1.5 rounded-md border border-border bg-grey1 px-[15.5px] py-2.25 text-xs text-font-middle",
+          "filter-[drop-shadow(0_2px_4px_rgba(0,0,0,0.08))_drop-shadow(0_4px_8px_rgba(0,0,0,0.12))]",
+          "origin-(--radix-tooltip-content-transform-origin) data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[state=delayed-open]:animate-in data-[state=delayed-open]:fade-in-0 data-[state=delayed-open]:zoom-in-95 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95",
+className
         )}
         {...props}
       >
         {children}
-        <TooltipPrimitive.Arrow className="bg-grey1 fill-grey1 border-border size-2.5 translate-y-[calc(-50%_-_2px)] rotate-45 rounded-[2px]" />
+        <TooltipPrimitive.Arrow asChild>
+          <div className="bg-grey1 size-2.5 translate-y-[calc(-50%-2px)] rotate-45 rounded-xs shadow-[1px_1px_0_var(--color-border)]" />
+        </TooltipPrimitive.Arrow>
       </TooltipPrimitive.Content>
     </TooltipPrimitive.Portal>
   );
