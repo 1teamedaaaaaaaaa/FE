@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip,
@@ -6,8 +9,18 @@ import {
 } from "@/components/ui/tooltip";
 
 export default function Home() {
+  const [showIntro, setShowIntro] = useState(true);
+
+  const dismissIntro = () => setShowIntro(false);
+
   return (
     <main className="p-5">
+      {showIntro && (
+        <div
+          className="fixed inset-0 z-1000 bg-black/60"
+          onClick={dismissIntro}
+        />
+      )}
       <div className="mt-25 mb-24 flex flex-col items-center gap-8 text-center">
         <div className="bg-grey2 h-30 w-30 rounded-full"></div>
         <div className="flex flex-col gap-6">
@@ -25,7 +38,7 @@ export default function Home() {
         </div>
       </div>
       <div className="flex flex-col gap-4">
-        <Tooltip>
+        <Tooltip open={showIntro}>
           <TooltipTrigger asChild>
             <Button variant="btnPurple" size="full">
               신곡 홍보 링크 만들기
@@ -39,7 +52,7 @@ export default function Home() {
             </p>
           </TooltipContent>
         </Tooltip>
-        <Tooltip>
+        <Tooltip open={showIntro}>
           <TooltipTrigger asChild>
             <Button variant="btnWhite" size="full">
               내 음원 홍보 진단하기
