@@ -13,8 +13,16 @@ import { CalendarIcon, PlusIcon } from "lucide-react";
 import { useState } from "react";
 import { format } from "date-fns";
 
+const MAX_LINK = 4;
+
 export default function AlbumPage() {
   const [date, setDate] = useState<Date | undefined>();
+  const [links, setLinks] = useState<string[]>([""]);
+
+  const handleAddLink = () => {
+    if (links.length >= MAX_LINK) return;
+    setLinks((prev) => [...prev, ""]);
+  };
 
   return (
     <main className="flex flex-col">
@@ -51,7 +59,10 @@ export default function AlbumPage() {
           iconBtn={
             <Popover>
               <PopoverTrigger asChild>
-                <button className="hover: cursor-poin" type="button">
+                <button
+                  className="flex items-center justify-center hover:cursor-pointer"
+                  type="button"
+                >
                   <CalendarIcon size={24} />
                 </button>
               </PopoverTrigger>
@@ -61,8 +72,24 @@ export default function AlbumPage() {
             </Popover>
           }
         />
-        <Input label="스트리밍 링크" placeholder="링크를 붙여넣으세요" />
-        <button className="mb-1 flex w-fit flex-col items-center self-center hover:cursor-pointer">
+        {links.map((link, idx) => (
+          <Input
+            key={idx}
+            label={idx === 0 ? "스트리밍 링크" : undefined}
+            placeholder="링크를 붙여넣으세요"
+            value={link}
+            onChange={(e) => {
+              const newLinks = [...links];
+              newLinks[idx] = e.target.value;
+              setLinks(newLinks);
+            }}
+          />
+        ))}
+        <button
+          className="mb-1 flex w-fit flex-col items-center self-center hover:cursor-pointer"
+          onClick={handleAddLink}
+          disabled={links.length >= MAX_LINK}
+        >
           <div className="bg-font-light mb-1 flex h-5 w-5 items-center justify-center rounded-full">
             <PlusIcon className="text-grey1" size={16} />
           </div>
