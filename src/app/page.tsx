@@ -45,9 +45,9 @@ export default function Home() {
           </TooltipTrigger>
           <TooltipContent>
             <p>
-              발매 정보를 입력하면 팬에게 바로
+              발매 정보를 입력하면 <strong>팬에게 바로</strong>
               <br />
-              공유할 수 있는 링크가 생겨요
+              <strong>공유</strong>할 수 있는 링크가 생겨요
             </p>
           </TooltipContent>
         </Tooltip>
@@ -59,7 +59,7 @@ export default function Home() {
           </TooltipTrigger>
           <TooltipContent side="bottom">
             <p>
-              지금 팬이 왜 안 늘고 있는지,
+              지금 <strong>팬이 왜 안 늘고 있는지</strong>,
               <br />
               다음엔 뭘 하면 좋을지 알려드려요
             </p>
