@@ -119,6 +119,8 @@
   /* Brand */
   --color-main: #6a40fc;
   --color-sub: #bdfb46;
+  --main-light1: #f4f1ff;
+  --main-light2: #d4c4ff;
 
   /* Semantic */
   --color-success: #16b44a;
@@ -140,7 +142,7 @@
 }
 
 /* Typography */
-@layer components {
+@layer utilities {
   /* Heading */
   .h1-bold {
     font-size: 1.75rem; /* 28px */
@@ -182,35 +184,43 @@
   .p1-bold {
     font-size: 1rem; /* 16px */
     font-weight: 700;
+    line-height: 140%;
   }
   .p1-semibold {
     font-size: 1rem; /* 16px */
     font-weight: 600;
+    line-height: 140%;
   }
   .p1-medium {
     font-size: 1rem; /* 16px */
     font-weight: 500;
+    line-height: 140%;
   }
   .p1-regular {
     font-size: 1rem; /* 16px */
     font-weight: 400;
+    line-height: 140%;
   }
 
   .p2-bold {
     font-size: 0.875rem; /* 14px */
     font-weight: 700;
+    line-height: 130%;
   }
   .p2-semibold {
     font-size: 0.875rem; /* 14px */
     font-weight: 600;
+    line-height: 130%;
   }
   .p2-medium {
     font-size: 0.875rem; /* 14px */
     font-weight: 500;
+    line-height: 130%;
   }
   .p2-regular {
     font-size: 0.875rem; /* 14px */
     font-weight: 400;
+    line-height: 130%;
   }
 
   /* Caption */

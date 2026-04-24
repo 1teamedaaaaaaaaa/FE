@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { Button } from "@/components/ui/button";
 import Autoplay from "embla-carousel-autoplay";
@@ -7,14 +7,8 @@ import { useRouter } from "next/navigation";
 
 export default function OnboardingPage() {
   const router = useRouter();
-  const autoplay = useRef(
-    Autoplay({
-      delay: 5000,
-      stopOnInteraction: false, // 유저가 터치해도 계속 재생
-    })
-  );
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false }, [
-    autoplay.current,
+    Autoplay({ delay: 5000, stopOnInteraction: false }),
   ]);
   const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -75,8 +69,8 @@ export default function OnboardingPage() {
           <div
             className="embla__viewport"
             ref={emblaRef}
-            onMouseEnter={() => autoplay.current.stop()}
-            onMouseLeave={() => autoplay.current.play()}
+            onMouseEnter={() => emblaApi?.plugins()?.autoplay?.stop()}
+            onMouseLeave={() => emblaApi?.plugins()?.autoplay?.play()}
           >
             <div className="embla__container">
               <div className="embla__slide">
@@ -106,7 +100,7 @@ export default function OnboardingPage() {
               <button
                 key={index}
                 onClick={() => scrollTo(index)}
-                className={`embla__dot ${
+                className={`embla__dot cursor-pointer ${
                   index === selectedIndex ? "embla__dot--selected" : ""
                 }`}
               />
@@ -122,9 +116,12 @@ export default function OnboardingPage() {
           className="embla__next"
           onClick={handleNext}
         >
-          <span className="p1-bold">{canNext ? "다음" : "시작하기"}</span>
+          {canNext ? "다음" : "시작하기"}
         </Button>
-        <button className="text-font-light p2-semibold" onClick={handleFinish}>
+        <button
+          className="text-font-light p2-semibold cursor-pointer"
+          onClick={handleFinish}
+        >
           건너뛰기
         </button>
       </div>
