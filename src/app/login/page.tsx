@@ -18,21 +18,41 @@ export default function Login() {
         </div>
       </div>
       <div className="flex flex-col gap-2">
-        <Button asChild variant="btnWhite" size="full" className="text-[#000000]">
+        <Button
+          asChild
+          variant="btnWhite"
+          size="full"
+          className="text-[#000000]"
+        >
           <a href={`${BASE_URL}/google`}>
-            <Image src={"/google.png"} alt="Google Logo" width={44} height={44} />
+            <Image
+              src={"/google.png"}
+              alt="Google Logo"
+              width={30}
+              height={30}
+            />
             구글로 시작하기
           </a>
         </Button>
-        <Button asChild variant="btnWhite" size="full" className="border-none bg-[#FFE812] text-[#000000]">
+        <Button
+          asChild
+          variant="btnWhite"
+          size="full"
+          className="border-none bg-[#FFE812] text-[#000000]"
+        >
           <a href={`${BASE_URL}/kakao`}>
-            <Image src={"/kakao.png"} alt="Kakao Logo" width={44} height={44} />
+            <Image src={"/kakao.png"} alt="Kakao Logo" width={30} height={30} />
             카카오로 시작하기
           </a>
         </Button>
-        <Button asChild variant="btnWhite" size="full" className="border-none bg-[#03CF5D] text-[#ffffff]">
+        <Button
+          asChild
+          variant="btnWhite"
+          size="full"
+          className="border-none bg-[#03CF5D] text-[#ffffff]"
+        >
           <a href={`${BASE_URL}/naver`}>
-            <Image src={"/naver.png"} alt="Naver Logo" width={44} height={44} />
+            <Image src={"/naver.png"} alt="Naver Logo" width={30} height={30} />
             네이버로 시작하기
           </a>
         </Button>
