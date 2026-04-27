@@ -1,18 +1,15 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
-
 const BASE_URL = "https://api.musicpeak.site";
 
 export default function MyPage() {
-  const router = useRouter();
 
   const handleLogout = async () => {
     await fetch(`${BASE_URL}/api/auth/logout`, {
       method: "POST",
       credentials: "include",
     });
-    router.replace("/login");
+    window.location.href = "/login";
   };
 
   const handleWithdraw = async () => {
@@ -20,7 +17,7 @@ export default function MyPage() {
       method: "DELETE",
       credentials: "include",
     });
-    router.replace("/login");
+    window.location.href = "/login";
   };
 
   return (
