@@ -10,7 +10,7 @@ import Image from "next/image";
 export default function OnboardingPage() {
   const router = useRouter();
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false }, [
-    // Autoplay({ delay: 5000, stopOnInteraction: false }),
+    Autoplay({ delay: 5000, stopOnInteraction: false }),
     AutoHeight(),
   ]);
   const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
