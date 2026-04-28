@@ -56,15 +56,15 @@ export default function Promote() {
       </section>
 
       <div className="flex flex-col gap-4 px-6">
-        <Button variant="btnPurple" size="full">
-          마이페이지로 이동
+        <Button variant="btnPurple" size="full" asChild>
+          <Link href={"/mypage"}>마이페이지로 이동</Link>
         </Button>
         <div className="flex flex-col gap-1 text-center">
           <p className="text-font-light c1-medium cursor-pointer">
             이미 게시물을 올렸다면?
           </p>
           <Link
-            href={"/"}
+            href={"/coming-soon"}
             className="text-main cursor-pointer text-xs font-bold underline"
           >
             내 홍보 콘텐츠 진단하기
