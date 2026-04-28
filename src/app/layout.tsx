@@ -3,6 +3,7 @@ import { pretendard, poppins } from "./fonts/fonts";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import AlertModal from "@/components/common/alert-modal";
 import Header from "@/components/common/header";
 
 export const metadata: Metadata = {
@@ -42,6 +43,7 @@ export default function RootLayout({
         <div className="mx-auto min-h-screen w-full max-w-(--max-width) bg-white px-5 pb-9 shadow-2xl">
           <Header />
           <TooltipProvider>{children}</TooltipProvider>
+          <AlertModal />
         </div>
       </body>
     </html>
