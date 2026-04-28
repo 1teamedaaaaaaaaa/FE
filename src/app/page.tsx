@@ -1,20 +1,13 @@
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 import HomeButtons from "@/components/home/home-buttons";
-import ErrorView from "@/components/common/error-view";
 
 export default async function Home() {
   const cookieStore = await cookies();
   const isLoggedIn = cookieStore.has("refreshToken");
 
   if (!isLoggedIn) {
-    return (
-      <main className="p-5">
-        <ErrorView
-          title="로그인이 필요해요"
-          description="서비스를 이용하려면 로그인해주세요"
-        />
-      </main>
-    );
+    redirect("/login");
   }
 
   return (
