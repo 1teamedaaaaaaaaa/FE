@@ -37,6 +37,7 @@ const buttonVariants = cva(
         "icon-lg": "size-9",
         full: "flex justify-center items-center h-13 w-full rounded-full p1-bold",
         md: "flex justify-center items-center h-12 w-40 rounded-full p1-bold",
+        mini: "flex justify-center items-center h-7 w-14 rounded-lg p2-semibold",
       },
     },
     defaultVariants: {
