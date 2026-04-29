@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useOpenAlertModal } from "@/stores/alert-modal-store";
 import { toast } from "sonner";
+import AlbumDetail from "@/components/album/album-detail";
 
 const BASE_URL = "https://api.musicpeak.site";
 
@@ -48,7 +49,14 @@ export default function MyPage() {
   return (
     <main className="flex flex-1 flex-col gap-6 px-5 pt-10">
       {hasAlbums ? (
-        <>미리보기 컴포넌트 자리</>
+        <AlbumDetail
+          coverUrl="/test-cover.png"
+          title="피크와 함께라면"
+          artist="김피크"
+          releaseDate="2026.01.01"
+          streamingCodes={["spotify", "youtube", "soundcloud"]}
+          message={"난 지금 미쳐가고 있다.\n이 헤드폰에 내 모든 몸과 영혼을 맡겼다.\n음악만이 나라에서 허락하는 유일한 마약이니까.\n이게 바로 지금의 나다."}
+        />
       ) : (
         <div className="flex flex-1 flex-col items-center justify-center gap-4 text-center">
           <p className="p2-medium text-font-middle">
