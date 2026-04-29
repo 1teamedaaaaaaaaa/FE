@@ -10,6 +10,7 @@ export default function LoginErrorToast() {
   const withdrawnAt = searchParams.get("withdrawnAt");
 
   useEffect(() => {
+    if (error !== "withdrawn") return;
     const message = withdrawnAt ? (
       <span>
         {withdrawnAt}에 탈퇴처리된 계정입니다.
@@ -24,7 +25,7 @@ export default function LoginErrorToast() {
       </span>
     );
     toast.error(message, { duration: 3000 });
-  }, [withdrawnAt]);
+  }, [error, withdrawnAt]);
 
   return null;
 }
