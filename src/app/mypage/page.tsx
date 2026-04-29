@@ -112,7 +112,11 @@ export default function MyPage() {
     <main className="flex flex-1 flex-col gap-6 px-5 pt-10">
       {hasAlbums ? (
         <>
-          <AlbumCarousel albums={MOCK_ALBUMS} onSelect={handleSelect} onDelete={handleDeleteAlbum} />
+          <AlbumCarousel
+            albums={MOCK_ALBUMS}
+            onSelect={handleSelect}
+            onDelete={handleDeleteAlbum}
+          />
           <div className="flex flex-col gap-2">
             <Button
               variant="btnPurple"
