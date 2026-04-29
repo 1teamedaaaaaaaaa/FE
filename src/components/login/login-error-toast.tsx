@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 
-interface Props {
-  withdrawnAt?: string;
-}
+export default function LoginErrorToast() {
+  const searchParams = useSearchParams();
+  const error = searchParams.get("error");
+  const withdrawnAt = searchParams.get("withdrawnAt");
 
-export default function LoginErrorToast({ withdrawnAt }: Props) {
   useEffect(() => {
     const message = withdrawnAt ? (
       <span>
