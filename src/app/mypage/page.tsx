@@ -19,7 +19,8 @@ export default function MyPage() {
       method: "POST",
       credentials: "include",
     });
-    router.replace("/login");
+    router.push("/");
+    router.refresh();
   };
 
   const handleWithdraw = () => {
