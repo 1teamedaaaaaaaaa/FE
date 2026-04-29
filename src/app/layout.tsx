@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import AlertModal from "@/components/common/alert-modal";
 import Header from "@/components/common/header";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.musicpeak.site"),
@@ -60,10 +61,13 @@ export default function RootLayout({
         }}
       />
       <body>
-        <div className="mx-auto min-h-screen w-full max-w-(--max-width) bg-white px-5 pb-9 shadow-2xl">
+        <div className="mx-auto flex min-h-screen w-full max-w-(--max-width) flex-col bg-white px-5 pb-9 shadow-2xl">
           <Header />
-          <TooltipProvider>{children}</TooltipProvider>
+          <div className="flex flex-1 flex-col">
+            <TooltipProvider>{children}</TooltipProvider>
+          </div>
           <AlertModal />
+          <Toaster position="top-center" />
         </div>
       </body>
     </html>
