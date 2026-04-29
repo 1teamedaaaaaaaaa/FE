@@ -9,7 +9,7 @@ export default function MyPage() {
       method: "POST",
       credentials: "include",
     });
-    window.location.href = "/login";
+    window.location.href = "/";
   };
 
   const handleWithdraw = async () => {
