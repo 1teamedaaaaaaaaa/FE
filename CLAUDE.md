@@ -75,6 +75,22 @@
 - 타이포그래피는 `globals.css`에 정의된 유틸 클래스 사용 (예: `h1-bold`, `p1-bold`, `p3-regular`)
 - 타이포그래피 클래스는 `@layer components`에 정의되어 있어 Tailwind 유틸보다 우선순위가 낮음 — CVA 내부에서 쓸 경우 `text-base font-bold` 등 Tailwind 유틸로 대체할 것
 
+## 피그마 토큰 업데이트
+
+피그마에서 `figma-export.json`으로 내보낸 후 요청하면 아래 규칙에 따라 `src/app/globals.css`의 `@theme inline`을 업데이트한다.
+
+### 변환 규칙
+
+- 색상 토큰은 카테고리 prefix(`brand`, `semantic`, `greyscale`) 제거 후 추가
+  - 예) `color-brand-main-mid` → `--color-main-mid`
+- semantic 색상은 의미 기반 이름 사용
+  - 예) `color-semantic-blue` → `--color-info`
+- shadow, radius는 토큰명 그대로 사용
+  - 예) `shadow-btn` → `--shadow-btn`, `radius-r1` → `--radius-r1`
+- 이미 있는 변수는 값만 업데이트, 없는 것만 추가
+
+---
+
 ## SVG 아이콘 컨벤션
 
 - lucide-react 아이콘을 커스텀할 경우 피그마에서 SVG로 내보내기 후 `src/components/ui/`에 별도 컴포넌트로 분리
