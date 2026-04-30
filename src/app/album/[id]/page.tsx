@@ -1,16 +1,7 @@
 import { Button } from "@/components/ui/button";
 import AlbumDetail from "@/components/album/album-detail";
 import { getMusicPromotion } from "@/lib/api/music-promotion";
-
-const MOCK_ALBUM = {
-  coverUrl: "/test-cover.png",
-  title: "피크와 함께라면",
-  artist: "김피크",
-  releaseDate: "2026.01.01",
-  streamingCodes: ["spotify", "youtubemusic", "soundcloud"] as const,
-  message:
-    "난 지금 미쳐가고 있다.\n이 헤드폰에 내 모든 몸과 영혼을 맡겼다.\n음악만이 나라에서 허락하는 유일한 마약이니까.\n이게 바로 지금의 나다.",
-};
+import { getStreamingCode } from "@/utils/album";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -21,11 +12,30 @@ export default async function AlbumDetailPage({ params }: Props) {
   const promotionId = Number(id);
 
   const data = await getMusicPromotion(promotionId);
-  console.log(data);
+
+  const albumInfo = {
+    coverUrl: data.imageUrl,
+    title: data.songTitle,
+    artist: data.activityName,
+    releaseDate: data.releaseDate,
+    message: data.shortDescription,
+    streamingLinks: data.streamingLinks
+      .sort((a, b) => a.displayOrder - b.displayOrder)
+      .map((link) => {
+        const code = getStreamingCode(`https://${link.domain}`);
+        if (!code) return null;
+
+        return {
+          code,
+          url: link.redirectUrl,
+        };
+      })
+      .filter((v): v is NonNullable<typeof v> => v !== null),
+  };
 
   return (
     <main className="mt-4 flex flex-col justify-center gap-10">
-      <AlbumDetail {...MOCK_ALBUM} />
+      <AlbumDetail {...albumInfo} />
 
       <div className="flex flex-col items-center gap-1">
         <span className="c1-medium text-font-light">
