@@ -16,3 +16,8 @@ export type StreamingCode =
   | "melon"
   | "youtubemusic"
   | "soundcloud";
+
+export interface StreamingItem {
+  code: StreamingCode;
+  url: string;
+}
