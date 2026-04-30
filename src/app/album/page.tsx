@@ -11,9 +11,11 @@ import {
 import { Calendar } from "@/components/ui/calendar";
 import { PlusIcon, ImageIcon, CalendarIcon, XIcon } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useOpenAlertModal } from "@/stores/alert-modal-store";
 import { uploadCoverImg } from "@/lib/api/uploads";
+import { createMusicPromotion } from "@/lib/api/music-promotion";
 import { getStreamingCode } from "@/utils/album";
 import { format } from "date-fns";
 
@@ -21,12 +23,12 @@ const VALID_COVER_IMG_TYPES = ["image/jpeg", "image/png", "image/webp"];
 const MAX_LINK = 4;
 
 export default function AlbumPage() {
+  const router = useRouter();
   const openAlertModal = useOpenAlertModal();
 
   // 앨범 커버 이미지 상태
   const [coverFile, setCoverFile] = useState<File | null>(null);
   const [coverPreview, setCoverPreview] = useState<string>("");
-  const [imageUrl, setImageUrl] = useState<string>("");
 
   // 앨범 정보 입력값 상태
   const [artist, setArtist] = useState("");
@@ -106,19 +108,40 @@ export default function AlbumPage() {
   };
 
   const handleSubmit = async () => {
-    validate();
+    const isValid = validate();
+
+    if (!isValid) return;
 
     try {
-      const uploadedImageUrl = await uploadCoverImg(coverFile!);
+      // 1. 이미지 업로드
+      const imageUrl = await uploadCoverImg(coverFile!);
 
-      console.log("업로드 성공 URL:", uploadedImageUrl);
-      setImageUrl(uploadedImageUrl);
+      // 2. payload 생성
+      const payload = {
+        activityName: artist,
+        songTitle: albumName,
+        releaseDate: format(date!, "yyyy-MM-dd"),
+        streamingLinks: links
+          .filter((link) => link.trim() !== "")
+          .map((link) => ({
+            streamingCode: getStreamingCode(link)!,
+            url: link,
+          })),
+        imageUrl: imageUrl,
+        shortDescription: description,
+      };
+
+      // 3. 뮤지션 홍보 생성 API 호출
+      const { promotionId } = await createMusicPromotion(payload);
+
+      // 4. 앨범 조회 페이지 이동
+      router.push(`/album/${promotionId}`);
     } catch (error) {
       console.error(error);
 
       openAlertModal({
         type: "alert",
-        message: "이미지 업로드에 실패했습니다.",
+        message: "뮤지션 홍보 생성에 실패했습니다.",
       });
     }
   };

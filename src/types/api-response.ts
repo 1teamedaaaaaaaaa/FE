@@ -8,3 +8,13 @@ export interface GetCoverImgUploadUrlRes {
   imageKey: string;
   imageUrl: string;
 }
+
+/******************************
+ * Music Promotion
+ ******************************/
+
+// 뮤지션 홍보 생성 Res
+export interface CreateMusicPromotionRes {
+  trackingUrl: string;
+  promotionId: number;
+}

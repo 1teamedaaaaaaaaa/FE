@@ -1,26 +1,23 @@
+import { fetcher } from "@/lib/api/common";
 import { GetCoverImgUploadUrlRes } from "@/types/api-response";
-
-const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 /**
  * 음악 홍보 이미지 업로드 URL 발급 : presigned URL 발급
- * POST /uploads/music-promotion-image
+ * [POST] /uploads/music-promotion-image
  */
 export async function getCoverImgUploadUrl(
   filename: string
 ): Promise<GetCoverImgUploadUrlRes> {
-  const res = await fetch(
-    `${BASE_URL}/uploads/music-promotion-image?filename=${filename}`,
-    {
-      method: "POST",
-    }
-  );
-
-  if (!res.ok) {
+  try {
+    return await fetcher(
+      `/uploads/music-promotion-image?filename=${filename}`,
+      {
+        method: "POST",
+      }
+    );
+  } catch (e) {
     throw new Error("[uploads]: 커버 이미지 업로드 URL 발급 실패");
   }
-
-  return res.json();
 }
 
 /**
