@@ -163,9 +163,9 @@ export default function AlbumPage() {
       <div className="mt-10 mb-7 flex flex-col gap-1">
         <h4 className="h3-bold text-font-basic">신곡에 대해 얘기해주세요</h4>
         <p className="p2-regular text-font-middle">
-          간단하게만 채워도 괜찮아요
+          뮤지션의 한마디가 스트리밍으로 이어져요.
           <br />
-          입력하는 대로 미리보기 페이지에 반영돼요 👀
+          구체적일수록 음원의 매력을 더 잘 전달할 수 있어요.
         </p>
       </div>
 
