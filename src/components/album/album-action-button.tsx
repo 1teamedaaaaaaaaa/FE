@@ -6,9 +6,10 @@ import { useRouter } from "next/navigation";
 
 interface Props {
   url: string;
+  promotionId: number;
 }
 
-export default function AlbumActionButton({ url }: Props) {
+export default function AlbumActionButton({ url, promotionId }: Props) {
   const router = useRouter();
 
   const handleCopy = async () => {
@@ -21,12 +22,16 @@ export default function AlbumActionButton({ url }: Props) {
     }
   };
 
+  const handleEdit = () => {
+    router.push(`/album?edit=${promotionId}`);
+  };
+
   return (
     <div className="flex gap-2">
       <Button variant="btnPurple" size="md" onClick={handleCopy}>
         🔗 링크 복사
       </Button>
-      <Button variant="btnPurpleSub" size="md">
+      <Button variant="btnPurpleSub" size="md" onClick={handleEdit}>
         수정하기
       </Button>
     </div>
