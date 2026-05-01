@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -10,58 +10,52 @@ import AlbumCarousel, { AlbumData } from "@/components/mypage/album-carousel";
 import { getMyPagePromotions, getMusicPromotion, deleteMusicPromotion } from "@/lib/api/music-promotion";
 import { getStreamingCode } from "@/utils/album";
 import { Spinner } from "@/components/ui/spinner";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 const BASE_URL = "https://api.musicpeak.site";
+
+async function fetchAlbums(): Promise<AlbumData[]> {
+  const { promotions } = await getMyPagePromotions();
+  const details = await Promise.all(
+    [...promotions]
+      .sort((a, b) => b.promotionId - a.promotionId)
+      .map((p) => getMusicPromotion(p.promotionId))
+  );
+
+  return details.map((data) => ({
+    id: String(data.promotionId),
+    coverUrl: data.imageUrl,
+    title: data.songTitle,
+    artist: data.activityName,
+    releaseDate: data.releaseDate,
+    message: data.shortDescription,
+    streamingLinks: data.streamingLinks
+      .sort((a, b) => a.displayOrder - b.displayOrder)
+      .map((link) => {
+        const code = getStreamingCode(`https://${link.domain}`);
+        if (!code) return null;
+        return { code, url: link.redirectUrl };
+      })
+      .filter((v): v is NonNullable<typeof v> => v !== null),
+    link: data.trackingUrl,
+  }));
+}
 
 export default function MyPage() {
   const router = useRouter();
   const openAlertModal = useOpenAlertModal();
-  const [albums, setAlbums] = useState<AlbumData[]>([]);
-  const [selectedAlbum, setSelectedAlbum] = useState<AlbumData | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [selectedAlbumId, setSelectedAlbumId] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchAlbums = async () => {
-      try {
-        const { promotions } = await getMyPagePromotions();
-        const details = await Promise.all(
-          [...promotions]
-            .sort((a, b) => b.promotionId - a.promotionId)
-            .map((p) => getMusicPromotion(p.promotionId))
-        );
+  const queryClient = useQueryClient();
+  const { data: albums = [], isLoading } = useQuery<AlbumData[]>({
+    queryKey: ["myPageAlbums"],
+    queryFn: fetchAlbums,
+  });
 
-        const albumData: AlbumData[] = details.map((data) => ({
-          id: String(data.promotionId),
-          coverUrl: data.imageUrl,
-          title: data.songTitle,
-          artist: data.activityName,
-          releaseDate: data.releaseDate,
-          message: data.shortDescription,
-          streamingLinks: data.streamingLinks
-            .sort((a, b) => a.displayOrder - b.displayOrder)
-            .map((link) => {
-              const code = getStreamingCode(`https://${link.domain}`);
-              if (!code) return null;
-              return { code, url: link.redirectUrl };
-            })
-            .filter((v): v is NonNullable<typeof v> => v !== null),
-          link: data.trackingUrl,
-        }));
-
-        setAlbums(albumData);
-        if (albumData.length > 0) setSelectedAlbum(albumData[0]);
-      } catch {
-        toast.error("앨범 목록을 불러오지 못했어요.");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchAlbums();
-  }, []);
+  const selectedAlbum = albums.find((a) => a.id === selectedAlbumId) ?? albums[0] ?? null;
 
   const handleSelect = useCallback((album: AlbumData) => {
-    setSelectedAlbum(album);
+    setSelectedAlbumId(album.id);
   }, []);
 
   const handleLogout = async () => {
@@ -89,11 +83,10 @@ export default function MyPage() {
       onAction: async () => {
         try {
           await deleteMusicPromotion(Number(album.id));
-          setAlbums((prev) => {
-            const next = prev.filter((a) => a.id !== album.id);
-            setSelectedAlbum(next[0] ?? null);
-            return next;
-          });
+          queryClient.setQueryData<AlbumData[]>(["myPageAlbums"], (prev = []) =>
+            prev.filter((a) => a.id !== album.id)
+          );
+          setSelectedAlbumId(null);
         } catch {
           toast.error("삭제에 실패했어요. 잠시 후 다시 시도해 주세요.");
         }
