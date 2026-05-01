@@ -47,6 +47,21 @@ export async function getMyPagePromotions(): Promise<GetMyPagePromotionsRes> {
 }
 
 /**
+ * 뮤지션 홍보 삭제
+ * [DELETE] /music-promotions/{promotionId}
+ */
+export async function deleteMusicPromotion(promotionId: number): Promise<void> {
+  try {
+    await fetcher<void>(`/music-promotions/${promotionId}`, {
+      method: "DELETE",
+    });
+  } catch (e) {
+    console.error("[music-promotion]: 뮤지션 홍보 삭제 실패");
+    throw e;
+  }
+}
+
+/**
  * 뮤지션 홍보 조회
  * [GET] /music-promotions/{promotionId}
  */
