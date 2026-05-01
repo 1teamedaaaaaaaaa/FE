@@ -25,7 +25,9 @@ export default function MyPage() {
       try {
         const { promotions } = await getMyPagePromotions();
         const details = await Promise.all(
-          promotions.map((p) => getMusicPromotion(p.promotionId))
+          [...promotions]
+            .sort((a, b) => b.promotionId - a.promotionId)
+            .map((p) => getMusicPromotion(p.promotionId))
         );
 
         const albumData: AlbumData[] = details.map((data) => ({
