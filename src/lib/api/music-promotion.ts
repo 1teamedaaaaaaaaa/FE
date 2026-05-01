@@ -33,13 +33,11 @@ export async function createMusicPromotion(
  */
 export async function getMyPagePromotions(): Promise<GetMyPagePromotionsRes> {
   try {
-    const res = await fetcher<{
-      data: GetMyPagePromotionsRes;
-    }>("/mypage/promotions", {
+    const res = await fetcher<GetMyPagePromotionsRes>("/mypage/promotions", {
       method: "GET",
     });
 
-    return res.data;
+    return res;
   } catch (e) {
     console.error("[music-promotion]: 마이페이지 프로모션 목록 조회 실패");
     throw e;
