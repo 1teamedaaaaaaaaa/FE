@@ -7,10 +7,15 @@ import Link from "next/link";
 import { useOpenAlertModal } from "@/stores/alert-modal-store";
 import { toast } from "sonner";
 import AlbumCarousel, { AlbumData } from "@/components/mypage/album-carousel";
-import { getMyPagePromotions, getMusicPromotion, deleteMusicPromotion } from "@/lib/api/music-promotion";
+import {
+  getMyPagePromotions,
+  getMusicPromotion,
+  deleteMusicPromotion,
+} from "@/lib/api/music-promotion";
 import { getStreamingCode } from "@/utils/album";
 import { Spinner } from "@/components/ui/spinner";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import ErrorView from "@/components/common/error-view";
 
 const BASE_URL = "https://api.musicpeak.site";
 
@@ -47,12 +52,18 @@ export default function MyPage() {
   const [selectedAlbumId, setSelectedAlbumId] = useState<string | null>(null);
 
   const queryClient = useQueryClient();
-  const { data: albums = [], isLoading } = useQuery<AlbumData[]>({
+  const {
+    data: albums = [],
+    isLoading,
+    isError,
+    refetch,
+  } = useQuery<AlbumData[]>({
     queryKey: ["myPageAlbums"],
     queryFn: fetchAlbums,
   });
 
-  const selectedAlbum = albums.find((a) => a.id === selectedAlbumId) ?? albums[0] ?? null;
+  const selectedAlbum =
+    albums.find((a) => a.id === selectedAlbumId) ?? albums[0] ?? null;
 
   const handleSelect = useCallback((album: AlbumData) => {
     setSelectedAlbumId(album.id);
@@ -137,6 +148,15 @@ export default function MyPage() {
         <div className="flex flex-1 items-center justify-center">
           <Spinner className="text-main" />
         </div>
+      ) : isError ? (
+        <>
+          <ErrorView title="데이터를 불러오지 못했어요." />
+          <div className="fixed right-0 bottom-30 left-0 mx-auto max-w-(--max-width) px-11">
+            <Button variant="btnPurple" size="full" onClick={() => refetch()}>
+              다시 시도
+            </Button>
+          </div>
+        </>
       ) : albums.length > 0 ? (
         <>
           <AlbumCarousel
