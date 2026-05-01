@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useOpenAlertModal } from "@/stores/alert-modal-store";
 import { toast } from "sonner";
 import AlbumCarousel, { AlbumData } from "@/components/mypage/album-carousel";
-import { getMyPagePromotions, getMusicPromotion } from "@/lib/api/music-promotion";
+import { getMyPagePromotions, getMusicPromotion, deleteMusicPromotion } from "@/lib/api/music-promotion";
 import { getStreamingCode } from "@/utils/album";
 
 const BASE_URL = "https://api.musicpeak.site";
@@ -70,7 +70,7 @@ export default function MyPage() {
     router.refresh();
   };
 
-  const handleDeleteAlbum = () => {
+  const handleDeleteAlbum = (album: AlbumData) => {
     openAlertModal({
       type: "confirm",
       message: (
@@ -83,7 +83,18 @@ export default function MyPage() {
           정말 삭제하시겠어요?
         </>
       ),
-      onAction: () => {},
+      onAction: async () => {
+        try {
+          await deleteMusicPromotion(Number(album.id));
+          setAlbums((prev) => {
+            const next = prev.filter((a) => a.id !== album.id);
+            setSelectedAlbum(next[0] ?? null);
+            return next;
+          });
+        } catch {
+          toast.error("삭제에 실패했어요. 잠시 후 다시 시도해 주세요.");
+        }
+      },
     });
   };
 
