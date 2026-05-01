@@ -3,6 +3,7 @@ import { MusicPromotionInfo } from "@/types/album";
 import {
   CreateMusicPromotionRes,
   GetMusicPromotionRes,
+  GetMyPagePromotionsRes,
 } from "@/types/api-response";
 
 /**
@@ -23,6 +24,25 @@ export async function createMusicPromotion(
     return res.data;
   } catch {
     throw new Error("[music-promotion]: 뮤지션 홍보 생성 실패");
+  }
+}
+
+/**
+ * 마이페이지 프로모션 목록 조회
+ * [GET] /mypage/promotions
+ */
+export async function getMyPagePromotions(): Promise<GetMyPagePromotionsRes> {
+  try {
+    const res = await fetcher<{
+      data: GetMyPagePromotionsRes;
+    }>("/mypage/promotions", {
+      method: "GET",
+    });
+
+    return res.data;
+  } catch (e) {
+    console.error("[music-promotion]: 마이페이지 프로모션 목록 조회 실패");
+    throw e;
   }
 }
 
