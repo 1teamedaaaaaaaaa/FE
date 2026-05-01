@@ -166,7 +166,7 @@ export default function MyPage() {
               variant="btnWhite"
               size="full"
               onClick={() =>
-                selectedAlbum && router.push(`/album/${selectedAlbum.id}`)
+                selectedAlbum && router.push(`/album?edit=${selectedAlbum.id}`)
               }
             >
               수정하기
