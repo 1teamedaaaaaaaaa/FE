@@ -20,7 +20,7 @@ import { useState } from "react";
 import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 
-export default function Report() {
+export default function ComingSoon() {
   const [date, setDate] = useState<Date | undefined>();
   const [calendarOpen, setCalendarOpen] = useState(false);
   const [errors] = useState({ date: false });
