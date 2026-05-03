@@ -28,7 +28,7 @@ const TIPS: { title: string; description: ReactNode[] }[] = [
   },
 ];
 
-export default function reportDetailPage() {
+export default function ReportDetailPage() {
   return (
     <main className="flex flex-col gap-9">
       <div className="mt-7 flex flex-col items-start gap-1">
