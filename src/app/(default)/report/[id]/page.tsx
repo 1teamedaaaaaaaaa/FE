@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Calendar, ChevronRight } from "lucide-react";
+import { Calendar, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
@@ -55,7 +55,7 @@ export default function reportDetailPage() {
         </section>
 
         <section className="border-border rounded-r3 flex flex-col gap-4 border p-5">
-          <div className="text-font-middle p1-bold flex flex-col gap-1">
+          <h6 className="text-font-middle p1-bold flex flex-col gap-1">
             지금 홍보가 막힌 단계는
             <span className="text-main-dark1 h3-bold flex items-center gap-1">
               피드 게시글
@@ -63,11 +63,11 @@ export default function reportDetailPage() {
               프로필 방문
             </span>
             이에요
-          </div>
+          </h6>
           <div className="bg-brand-gradient rounded-r2 p-4 break-keep whitespace-pre-line text-white">
             게시글 반응은 있지만, 프로필 링크까지 이어지지 않았어요.
             <br />
-            콘텐츠에 링크로 유도하는 장치가 필요해요.
+            <strong>콘텐츠에 링크로 유도하는 장치가 필요해요.</strong>
           </div>
         </section>
       </div>
@@ -83,11 +83,9 @@ export default function reportDetailPage() {
               <div className="num bg-font-light c1-bold flex h-6 w-6 items-center justify-center rounded-full text-white">
                 {index + 1}
               </div>
-              <div className="flex flex-col gap-1 text-wrap">
+              <div className="flex flex-col gap-1 text-wrap break-keep whitespace-pre-line">
                 <h5 className="p1-bold text-main">{title}</h5>
-                <p className="p2-regular text-font-middle whitespace-pre-line">
-                  {description}
-                </p>
+                <p className="p2-regular text-font-middle">{description}</p>
               </div>
             </li>
           ))}
