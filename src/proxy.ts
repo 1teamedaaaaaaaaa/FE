@@ -8,7 +8,7 @@ export function proxy(request: NextRequest) {
 
   const isPublic =
     PUBLIC_PATHS.some((p) => pathname.startsWith(p)) ||
-    /^\/album\/[^/]+$/.test(pathname);
+    /^\/album\/\d+$/.test(pathname);
 
   if (pathname === "/") {
     if (!request.cookies.has("onboarding")) {
