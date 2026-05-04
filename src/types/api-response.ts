@@ -37,6 +37,47 @@ export interface GetMyPagePromotionsRes {
   hasNext: boolean;
 }
 
+/******************************
+ * AI Analyze
+ ******************************/
+
+export interface AnalyzeRes {
+  headline: string;
+  diagnosis: {
+    bottleneckType: string;
+    highlightSection: string;
+    shareCount: number;
+    profileVisitCount: number;
+    linkClickCount: number;
+    interpretation: string;
+  };
+  calculatedMetrics: {
+    avgReachPerPost: number;
+    avgSharePerPost: number;
+    avgProfileVisitPerPost: number;
+    shareRateByReach: number;
+    profileVisitRateByReach: number;
+    linkClickRateByProfileVisit: number;
+    linkClickRateByReach: number;
+  };
+  channelInsight: {
+    bestChannel: string;
+    bestChannelClickRate: number;
+    summary: string;
+  };
+  postInsight: {
+    topPostPattern: string;
+    lowPostPattern: string;
+    suggestion: string;
+  };
+  actions: {
+    title: string;
+    reason: string;
+    metric: string;
+    example: string;
+  }[];
+}
+
 // 뮤지션 홍보 조회 Res
 export interface GetMusicPromotionRes {
   promotionId: number;
