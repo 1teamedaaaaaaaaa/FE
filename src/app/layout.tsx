@@ -5,7 +5,6 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import AlertModal from "@/components/common/alert-modal";
-import Header from "@/components/common/header";
 import ToastProvider from "@/components/ui/toast-provider";
 import QueryProvider from "@/components/common/query-provider";
 
