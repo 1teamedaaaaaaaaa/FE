@@ -1,6 +1,7 @@
 import { fetcher } from "@/lib/api/common";
 import { MusicPromotionInfo } from "@/types/album";
 import {
+  AnalyzeRes,
   CreateMusicPromotionRes,
   GetMusicPromotionRes,
   GetMyPagePromotionsRes,
@@ -84,6 +85,25 @@ export async function getMusicPromotion(
  * 뮤지션 홍보 수정
  * [PUT] /music-promotions/{promotionId}
  */
+/**
+ * AI 분석 요청
+ * [POST] /ai/analyze/{promotionId}
+ */
+export async function analyzePromotion(
+  promotionId: number,
+  payload: { sinceDate: string; instagramAccountId: string }
+): Promise<AnalyzeRes> {
+  try {
+    const res = await fetcher<AnalyzeRes>(`/ai/analyze/${promotionId}`, {
+      method: "POST",
+      body: JSON.stringify(payload),
+    });
+    return res;
+  } catch {
+    throw new Error("[music-promotion]: AI 분석 요청 실패");
+  }
+}
+
 export async function updateMusicPromotion(
   promotionId: number,
   payload: MusicPromotionInfo

@@ -18,8 +18,12 @@ import { useState } from "react";
 import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
-import { getMyPagePromotions } from "@/lib/api/music-promotion";
+import {
+  analyzePromotion,
+  getMyPagePromotions,
+} from "@/lib/api/music-promotion";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 type ReportFormErrors = {
   promotionId: boolean;
@@ -38,6 +42,7 @@ export default function Report() {
     instagram: false,
     date: false,
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleInstagramChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
@@ -54,7 +59,7 @@ export default function Report() {
   });
   const promotions = promotionsData?.promotions ?? [];
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const newErrors: ReportFormErrors = {
       promotionId: !selectedPromotionId,
       instagram: instagram.trim().length <= 1,
@@ -64,7 +69,18 @@ export default function Report() {
 
     if (newErrors.promotionId || newErrors.instagram || newErrors.date) return;
 
-    router.push("/report/complete");
+    setIsLoading(true);
+    try {
+      await analyzePromotion(Number(selectedPromotionId), {
+        sinceDate: format(date!, "yyyy-MM-dd"),
+        instagramAccountId: instagram.replace("@", ""),
+      });
+      router.push("/report/complete");
+    } catch {
+      toast.error("분석 요청에 실패했어요. 잠시 후 다시 시도해주세요.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -227,7 +243,7 @@ export default function Report() {
           variant="btnPurple"
           size="full"
           disabled={
-            !selectedPromotionId || instagram.trim().length <= 1 || !date
+            !selectedPromotionId || instagram.trim().length <= 1 || !date || isLoading
           }
           onClick={handleSubmit}
         >
