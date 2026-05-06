@@ -88,6 +88,8 @@ export default function MyPage() {
       method: "POST",
       credentials: "include",
     });
+    document.cookie = "isLoggedIn=; path=/; max-age=0";
+    localStorage.removeItem("accessToken");
     router.push("/");
     router.refresh();
   };
@@ -148,6 +150,8 @@ export default function MyPage() {
             return;
           }
           document.cookie = "onboarding=; path=/; max-age=0";
+          document.cookie = "isLoggedIn=; path=/; max-age=0";
+          localStorage.removeItem("accessToken");
           router.replace("/onboarding");
           router.refresh();
         } catch {
