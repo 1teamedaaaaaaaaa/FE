@@ -10,7 +10,7 @@ interface Props {
 
 export default async function AlbumDetailPage({ params }: Props) {
   const cookieStore = await cookies();
-  const isLoggedIn = cookieStore.has("isLoggedIn");
+  const isLoggedIn = cookieStore.has("accessToken");
 
   const { id } = await params;
   const promotionId = Number(id);
