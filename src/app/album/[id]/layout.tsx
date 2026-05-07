@@ -1,18 +1,16 @@
 import { cookies } from "next/headers";
 import Header from "@/components/common/header";
-import LogoHeader from "@/components/common/logo-header";
 
 export default async function AlbumLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const cookieStore = await cookies();
-  const isLoggedIn = cookieStore.has("accessToken");
+  const isLoggedIn = (await cookies()).has("isLoggedIn");
 
   return (
     <>
-      {isLoggedIn ? <Header /> : <LogoHeader />}
+      <Header variant={isLoggedIn ? "default" : "logo-only"} />
       {children}
     </>
   );
