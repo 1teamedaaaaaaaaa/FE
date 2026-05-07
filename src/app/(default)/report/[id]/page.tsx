@@ -32,11 +32,10 @@ export default function ReportDetailPage() {
   };
 
   return (
-    <main className="flex flex-col gap-9">
+    <>
       <BackButton href="/report" />
-      <div
-        className="bg-allwhite flex min-h-screen flex-col gap-9 pb-24"
-      >
+      <main className="flex flex-col gap-9">
+      <div className="bg-allwhite flex min-h-screen flex-col gap-9 pb-24">
         <div className="mt-7 flex flex-col items-start gap-1">
           <h2 className="h2-bold text-font-basic">
             김피크님의 홍보 현황이에요
@@ -108,5 +107,6 @@ export default function ReportDetailPage() {
         </Button>
       </div>
     </main>
+    </>
   );
 }
