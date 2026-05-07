@@ -8,10 +8,10 @@ type HeaderVariant = "default" | "logo-only" | "back";
 
 interface HeaderProps {
   variant?: HeaderVariant;
-  backHref?: string;
+  title?: string;
 }
 
-export default async function Header({ variant = "default", backHref = "/" }: HeaderProps) {
+export default async function Header({ variant = "default", title }: HeaderProps) {
   if (variant === "logo-only") {
     return (
       <div className="sticky top-0 z-40 flex h-14 w-full items-center justify-center bg-white">
@@ -24,8 +24,11 @@ export default async function Header({ variant = "default", backHref = "/" }: He
 
   if (variant === "back") {
     return (
-      <div className="sticky top-0 z-40 flex h-14 w-full items-center justify-between bg-white">
-        <BackButton href={backHref} />
+      <div className="sticky top-0 z-40 flex h-14 w-full items-center bg-white">
+        <BackButton />
+        {title && (
+          <h3 className="h3-bold absolute left-1/2 -translate-x-1/2">{title}</h3>
+        )}
       </div>
     );
   }
