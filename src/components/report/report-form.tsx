@@ -85,7 +85,7 @@ export default function ReportForm() {
     try {
       await analyzePromotion(Number(selectedPromotionId), {
         sinceDate: format(date!, "yyyy-MM-dd"),
-        instagramAccountId: instagram.replace("@", ""),
+        instagramUsername: instagram.replace("@", ""),
       });
       router.push("/report/complete");
     } catch {
