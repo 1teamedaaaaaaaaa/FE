@@ -55,7 +55,7 @@ export default function Complete() {
             </p>
             <Link
               href={"/"}
-              className="text-main cursor-pointer text-xs font-bold underline"
+              className="text-main c1-bold cursor-pointer underline"
             >
               이전 진단 내역 보기
             </Link>
