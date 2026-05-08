@@ -50,7 +50,7 @@ export default function Complete() {
             <Link href={"/mypage"}>마이페이지로 이동</Link>
           </Button>
           <div className="flex flex-col gap-1 text-center">
-            <p className="text-font-light c1-medium cursor-pointer">
+            <p className="text-font-light c1-medium">
               이미 진단받은 적이 있으신가요?
             </p>
             <Link
