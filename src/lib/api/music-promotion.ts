@@ -82,10 +82,6 @@ export async function getMusicPromotion(
 }
 
 /**
- * 뮤지션 홍보 수정
- * [PUT] /music-promotions/{promotionId}
- */
-/**
  * AI 분석 작업 생성
  * [POST] /ai/analysis-jobs/{promotionId}
  */
